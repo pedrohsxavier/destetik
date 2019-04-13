@@ -52,6 +52,41 @@ class UserController {
       console.log(err);
     }
   }
+
+  async show(req, res){
+    try{
+      const user = await User.findById(req.params.id);
+      if(user){
+        return res.json(user);
+      }else{
+        return res.json({error: 'User not found'});
+      }
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  async showAll(req, res){
+    try{
+      const users = await User.findAll(req.params.id);
+      return res.json(users);
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  async delete(req, res){
+    try{
+      const user = await User.findByIdAndRemove(req.params.id);
+      if(user){
+        return res.json(user);
+      }else{
+        return res.json({error: 'User not found'});
+      }
+    }catch(err){
+      console.log(err);
+    }
+  }
 }
 
 const userController = new UserController();
