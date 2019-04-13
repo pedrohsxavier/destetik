@@ -41,6 +41,14 @@ class UserController {
         delete req.body['old_password'];
         delete req.body['confirm_password'];
         req.body['password'] = await bcrypt.hash(password, 10);
+      }      
+      if ('email' in req.body) {
+        const { email } = req.body
+        const checkUser = await User.find({ email });
+        if (checkUser.length > 0)
+        return res
+          .status(400)
+          .json({ error: 'This e-mail is already registered.' });        
       }
       user = await User.findOneAndUpdate(
         { _id: req.params.id },
