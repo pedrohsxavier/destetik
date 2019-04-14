@@ -41,14 +41,14 @@ class UserController {
         delete req.body['old_password'];
         delete req.body['confirm_password'];
         req.body['password'] = await bcrypt.hash(password, 10);
-      }      
+      }
       if ('email' in req.body) {
-        const { email } = req.body
+        const { email } = req.body;
         const checkUser = await User.find({ email });
         if (checkUser.length > 0)
-        return res
-          .status(400)
-          .json({ error: 'This e-mail is already registered.' });        
+          return res
+            .status(400)
+            .json({ error: 'This e-mail is already registered.' });
       }
       user = await User.findOneAndUpdate(
         { _id: req.params.id },
@@ -61,37 +61,37 @@ class UserController {
     }
   }
 
-  async show(req, res){
-    try{
+  async show(req, res) {
+    try {
       const user = await User.findById(req.params.id);
-      if(user){
+      if (user) {
         return res.json(user);
-      }else{
-        return res.json({error: 'User not found'});
+      } else {
+        return res.json({ error: 'User not found' });
       }
-    }catch(err){
+    } catch (err) {
       console.log(err);
     }
   }
 
-  async showAll(req, res){
-    try{
-      const users = await User.findAll(req.params.id);
+  async showAll(req, res) {
+    try {
+      const users = await User.find();
       return res.json(users);
-    }catch(err){
+    } catch (err) {
       console.log(err);
     }
   }
 
-  async delete(req, res){
-    try{
-      const user = await User.findByIdAndRemove(req.params.id);
-      if(user){
+  async delete(req, res) {
+    try {
+      const user = await User.findOneAndDelete({ _id: req.params.id });
+      if (user) {
         return res.json(user);
-      }else{
-        return res.json({error: 'User not found'});
+      } else {
+        return res.json({ error: 'User not found' });
       }
-    }catch(err){
+    } catch (err) {
       console.log(err);
     }
   }
