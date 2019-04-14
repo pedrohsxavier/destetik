@@ -1,5 +1,9 @@
 import User from './model';
 import bcrypt from 'bcrypt';
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
+
+dotenv.config();
 
 class UserController {
   async store(req, res) {
@@ -28,7 +32,32 @@ class UserController {
     }
   }
 
-  async update(req, res, next) {
+  async login(req, res) {
+    try {
+      const { email, password } = req.body;
+      const user = await User.findOne({ email });
+      if (!user) return res.status(404).json({ error: 'User not found.' });
+      const passwordMatch = await bcrypt.compareSync(password, user.password);
+      if (!passwordMatch)
+        return res.status(400).json({ error: 'Wrong Password.' });
+      const payload = {
+        id: user.id,
+        email: user.email,
+        name: user.name
+      };
+      const token = await jwt.sign(payload, process.env.JWT_SECRET, {
+        expiresIn: 3600
+      });
+      return res.json({
+        success: true,
+        token: `Bearer ${token}`
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async update(req, res) {
     try {
       if ('old_password' in req.body) {
         var user = await User.findById(req.params.id);
