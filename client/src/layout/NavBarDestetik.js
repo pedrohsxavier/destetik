@@ -43,8 +43,8 @@ class NavBarDestetik extends React.Component {
                   Login
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem>Usuário</DropdownItem>
-                  <DropdownItem>Senha</DropdownItem>
+                  <DropdownItem>Login</DropdownItem>
+                  <DropdownItem>Registro</DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
