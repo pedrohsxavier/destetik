@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, Label, Input, Button, Col } from 'reactstrap';
+import { Form, Button } from 'reactstrap';
+import InputField from '../layout/InputField';
 
 export class Login extends Component {
   state = {
@@ -11,35 +12,33 @@ export class Login extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  handleSubmit = e => {
+    e.preventDefault();
+    const newUser = this.state;
+    console.log(newUser);
+  };
+
   render() {
     return (
       <>
-        <Form>
-          <FormGroup row>
-            <Col>
-              <Input
-                type='email'
-                name='email'
-                placeholder='Email'
-                value={this.state.email}
-                onChange={this.handleOnChange}
-              />
-            </Col>
-          </FormGroup>
-          <FormGroup row>
-            <Col>
-              <Input
-                type='password'
-                name='password'
-                placeholder='Senha'
-                value={this.state.password}
-                onChange={this.handleOnChange}
-              />
-            </Col>
-          </FormGroup>
+        <Form method='POST' onSubmit={this.handleSubmit}>
+          <InputField
+            type='email'
+            name='email'
+            placeholder='Email'
+            onChange={this.handleOnChange}
+            value={this.state.email}
+          />
+          <InputField
+            type='password'
+            name='password'
+            placeholder='Senha'
+            onChange={this.handleOnChange}
+            value={this.state.password}
+          />
           <Button type='submit'>Login</Button>
           <p style={{ marginTop: 16 + 'px' }}>
-            Ainda nao registrado? Registre-se aqui.
+            Ainda não registrado? <a href='/'>Registre-se aqui.</a>
           </p>
         </Form>
       </>
