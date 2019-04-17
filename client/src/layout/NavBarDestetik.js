@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   Collapse,
   Navbar,
@@ -43,8 +44,12 @@ class NavBarDestetik extends React.Component {
                   Login
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem>Login</DropdownItem>
-                  <DropdownItem>Registro</DropdownItem>
+                  <Link to='/login'>
+                    <DropdownItem>Login</DropdownItem>
+                  </Link>
+                  <Link to='/signup'>
+                    <DropdownItem>Registro</DropdownItem>
+                  </Link>
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
