@@ -1,6 +1,6 @@
 # Destetik Frontend Repository
 
-Repository to frontend of GPS Project
+Repository to frontend code of GPS Project
 
 # How to Run
 
